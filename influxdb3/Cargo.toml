@@ -8,21 +8,21 @@ license.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap_blocks = { path = "../clap_blocks" }
+clap_blocks = { path = "../../influxdb-core/clap_blocks" }
 influxdb3_server = { path = "../influxdb3_server" }
-iox_time = { path = "../iox_time" }
-iox_query = { path = "../iox_query" }
-ioxd_common = { path = "../ioxd_common"}
+iox_time = { path = "../../influxdb-core/iox_time" }
+iox_query = { path = "../../influxdb-core/iox_query" }
+ioxd_common = { path = "../../influxdb-core/ioxd_common"}
 influxdb3_write = { path = "../influxdb3_write" }
-metric = { path = "../metric" }
+metric = { path = "../../influxdb-core/metric" }
 object_store = { workspace = true }
-observability_deps = { path = "../observability_deps" }
-panic_logging = { path = "../panic_logging" }
-parquet_file = { path = "../parquet_file" }
-tokio_metrics_bridge = { path = "../tokio_metrics_bridge" }
-trace = { path = "../trace/" }
-trace_exporters = { path = "../trace_exporters" }
-trogging = { path = "../trogging", default-features = false, features = ["clap"] }
+observability_deps = { path = "../../influxdb-core/observability_deps" }
+panic_logging = { path = "../../influxdb-core/panic_logging" }
+parquet_file = { path = "../../influxdb-core/parquet_file" }
+tokio_metrics_bridge = { path = "../../influxdb-core/tokio_metrics_bridge" }
+trace = { path = "../../influxdb-core/trace/" }
+trace_exporters = { path = "../../influxdb-core/trace_exporters" }
+trogging = { path = "../../influxdb-core/trogging", default-features = false, features = ["clap"] }
 
 # Crates.io dependencies, in alphabetical order
 backtrace = "0.3"
@@ -39,7 +39,6 @@ tikv-jemalloc-sys = { version = "0.5.4", optional = true, features = ["unprefixe
 tokio = { version = "1.32", features = ["macros", "net", "parking_lot", "rt-multi-thread", "signal", "sync", "time", "io-std"] }
 tokio-util = { version = "0.7.9" }
 uuid = { version = "1", features = ["v4"] }
-workspace-hack = { version = "0.1", path = "../workspace-hack" }
 
 [features]
 default = ["jemalloc_replacing_malloc"]
