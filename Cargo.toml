@@ -22,7 +22,7 @@ exclude = [
 
 [workspace.package]
 version = "0.1.0"
-authors = ["InfluxDB Edge Developers"]
+authors = ["influxdata Edge Developers"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
@@ -30,8 +30,8 @@ license = "MIT OR Apache-2.0"
 arrow = { version = "49.0.0", features = ["prettyprint", "chrono-tz"] }
 arrow-buffer = { version = "49.0.0" }
 arrow-flight = { version = "49.0.0", features = ["flight-sql-experimental"] }
-datafusion = { git = "https://github.com/apache/arrow-datafusion.git", rev = "0e53c6d816f3a9d3d27c6ebb6d25b1699e5553e7" }
-datafusion-proto = { git = "https://github.com/apache/arrow-datafusion.git", rev = "0e53c6d816f3a9d3d27c6ebb6d25b1699e5553e7" }
+datafusion = "49.0.0"
+datafusion-proto = "49.0.0"
 hashbrown = { version = "0.14.3" }
 object_store = { version = "0.8.0" }
 parquet = { version = "49.0.0", features = ["object_store"] }
@@ -46,6 +46,33 @@ tonic = { version = "0.10.2", features = ["tls", "tls-roots"] }
 tonic-build = { version = "0.10.2" }
 tonic-health = { version = "0.10.2" }
 tonic-reflection = { version = "0.10.2" }
+
+# core.git crates we depend on
+authz = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb", features = ["http"] }
+clap_blocks = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+data_types = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+datafusion_util = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+influxdb-line-protocol = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+iox_catalog = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+iox_query = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+iox_time = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+ioxd_common = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+metric = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+metric_exporters = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+observability_deps = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+panic_logging = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+parquet_file = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+schema = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+service_common = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+service_grpc_flight = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+test_helpers = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev ="675113bd298c777ec7c45bdbbf89bd6413da6feb", features = ["future_timeout"] }
+test_helpers_end_to_end = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+tokio_metrics_bridge = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+trace = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+trace_exporters = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+trace_http = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+tracker = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb" }
+trogging = { git = "ssh://git@github.com/influxdata/influxdb3-core.git", rev = "675113bd298c777ec7c45bdbbf89bd6413da6feb", default-features = true, features = ["clap"] }
 
 [workspace.lints.rust]
 rust_2018_idioms = "deny"

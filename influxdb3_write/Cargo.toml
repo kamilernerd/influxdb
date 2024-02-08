@@ -6,21 +6,23 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
-data_types = { path = "../../influxdb-core/data_types" }
-influxdb-line-protocol = { path = "../../influxdb-core/influxdb_line_protocol" }
-iox_catalog = { path = "../../influxdb-core/iox_catalog" }
-iox_query = { path = "../../influxdb-core/iox_query" }
-object_store.workspace = true
-observability_deps = { path = "../../influxdb-core/observability_deps" }
-schema = { path = "../../influxdb-core/schema" }
 
+# Core Crates
+data_types.workspace = true
+influxdb-line-protocol.workspace = true
+iox_catalog.workspace = true
+iox_query.workspace = true
+observability_deps.workspace = true
+schema.workspace = true
 
+# crates.io crates
 arrow = { workspace = true }
 async-trait = "0.1"
 byteorder = "1.3.4"
 chrono = "0.4"
 crc32fast = "1.2.0"
 datafusion = { workspace = true }
+object_store.workspace = true
 parking_lot = "0.11.1"
 parquet = { workspace = true }
 thiserror = "1.0"
@@ -32,5 +34,5 @@ bytes = "1.5.0"
 futures-util = "0.3.30"
 
 [dev-dependencies]
-test_helpers = { path = "../../influxdb-core/test_helpers" }
-
+# Core Crates
+test_helpers.workspace = true
