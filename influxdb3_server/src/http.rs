@@ -14,6 +14,7 @@ use hyper::http::HeaderValue;
 use hyper::server::conn::{AddrIncoming, AddrStream};
 use hyper::{Body, Method, Request, Response, StatusCode};
 use influxdb3_write::persister::TrackedMemoryArrowWriter;
+use influxdb3_write::write_buffer::Error as WriteBufferError;
 use influxdb3_write::WriteBuffer;
 use iox_time::{SystemProvider, TimeProvider};
 use observability_deps::tracing::{debug, error, info};
@@ -180,7 +181,25 @@ where
     async fn write_lp(&self, req: Request<Body>) -> Result<Response<Body>> {
         let query = req.uri().query().ok_or(Error::MissingWriteParams)?;
         let params: WriteParams = serde_urlencoded::from_str(query)?;
-        info!("write_lp to {}", params.db);
+        match validate_db_name(&params.db) {
+            DbName::Valid => info!("write_lp to {}", params.db),
+            DbName::InvalidStartChar => {
+                return Ok(Response::builder().status(StatusCode::BAD_REQUEST).body(
+                    Body::from(
+                        "{\
+                        \"error\": \"db name did not start with a number or letter\"\
+                    }",
+                    ),
+                )?);
+            }
+            DbName::InvalidChar => {
+                return Ok(Response::builder()
+                    .status(StatusCode::BAD_REQUEST)
+                    .body(Body::from("{\
+                        \"error\": \"db name must use ASCII letters, numbers, underscores and hyphens only\"\
+                    }"))?);
+            }
+        }
 
         let body = self.read_body(req).await?;
         let body = std::str::from_utf8(&body).map_err(Error::NonUtf8Body)?;
@@ -190,11 +209,20 @@ where
         // TODO: use the time provider
         let default_time = SystemProvider::new().now().timestamp_nanos();
 
-        self.write_buffer
-            .write_lp(database, body, default_time)
-            .await?;
-
-        Ok(Response::new(Body::from("{}")))
+        match self
+            .write_buffer
+            .write_lp(database, body, default_time, params.accept_partial)
+            .await
+        {
+            Ok(_) => Ok(Response::new(Body::empty())),
+            Err(WriteBufferError::BatchParseError { errors }) => Ok(Response::new(Body::empty())),
+            Err(WriteBufferError::ParseError {
+                line_number,
+                message,
+            }) => Ok(Response::new(Body::empty())),
+            err @ Err(_) => err?,
+            //Ok(Response::builder().body(Body::from(serde_json::to_string(&errors))?))
+        }
     }
 
     async fn query_sql(&self, req: Request<Body>) -> Result<Response<Body>> {
@@ -384,6 +412,33 @@ where
     }
 }
 
+fn validate_db_name(name: &str) -> DbName {
+    // A valid name:
+    // - Starts with a letter or a number
+    // - Is ASCII not UTF-8
+    // - Contains only letters, numbers, underscores or hyphens
+    let mut first = true;
+    for char in name.chars() {
+        if first {
+            if !char.is_ascii_alphanumeric() {
+                return DbName::InvalidStartChar;
+            }
+        } else {
+            if !(char.is_ascii_alphanumeric() || char == '_' || char == '-') {
+                return DbName::InvalidChar;
+            }
+        }
+    }
+    DbName::Valid
+}
+
+#[derive(Debug)]
+enum DbName {
+    Valid,
+    InvalidChar,
+    InvalidStartChar,
+}
+
 #[derive(Debug, Deserialize)]
 pub(crate) struct QuerySqlParams {
     pub(crate) db: String,
@@ -391,9 +446,15 @@ pub(crate) struct QuerySqlParams {
     pub(crate) format: Option<String>,
 }
 
+// This is a hack around the fact that bool default is false not true
+const fn true_fn() -> bool {
+    true
+}
 #[derive(Debug, Deserialize)]
 pub(crate) struct WriteParams {
     pub(crate) db: String,
+    #[serde(default = "true_fn")]
+    pub(crate) accept_partial: bool,
 }
 
 pub(crate) async fn serve<W: WriteBuffer, Q: QueryExecutor>(

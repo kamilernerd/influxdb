@@ -36,7 +36,10 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum Error {
-    #[error("error parsing line {line_number}: {message}")]
+    #[error("error parsing multiple lines")]
+    BatchParseError { errors: Vec<Error> },
+
+    #[error("error parsing lines {line_number}: {message}")]
     ParseError { line_number: usize, message: String },
 
     #[error("column type mismatch for column {name}: existing: {existing:?}, new: {new:?}")]
@@ -121,10 +124,16 @@ impl<W: Wal> WriteBufferImpl<W> {
         db_name: NamespaceName<'static>,
         lp: &str,
         default_time: i64,
+        accept_partial: bool,
     ) -> Result<BufferedWriteRequest> {
         debug!("write_lp to {} in writebuffer", db_name);
 
-        let result = self.parse_validate_and_update_schema(db_name.clone(), lp, default_time)?;
+        let result = self.parse_validate_and_update_schema(
+            db_name.clone(),
+            lp,
+            default_time,
+            accept_partial,
+        )?;
 
         let wal_op = WalOp::LpWrite(LpWriteOp {
             db_name: db_name.to_string(),
@@ -154,6 +163,7 @@ impl<W: Wal> WriteBufferImpl<W> {
         db_name: NamespaceName<'static>,
         lp: &str,
         default_time: i64,
+        accept_partial: bool,
     ) -> Result<ValidationResult> {
         let (sequence, db) = self.catalog.db_or_create(db_name.as_str());
         let mut result = parse_validate_and_update_schema(
@@ -161,6 +171,7 @@ impl<W: Wal> WriteBufferImpl<W> {
             &db,
             &Partitioner::new_per_day_partitioner(),
             default_time,
+            accept_partial,
         )?;
 
         if let Some(schema) = result.schema.take() {
@@ -253,8 +264,10 @@ impl<W: Wal> Bufferer for WriteBufferImpl<W> {
         database: NamespaceName<'static>,
         lp: &str,
         default_time: i64,
+        accept_partial: bool,
     ) -> Result<BufferedWriteRequest> {
-        self.write_lp(database, lp, default_time).await
+        self.write_lp(database, lp, default_time, accept_partial)
+            .await
     }
 
     async fn close_open_segment(&self) -> crate::Result<Arc<dyn BufferSegment>> {
@@ -358,14 +371,34 @@ pub(crate) fn parse_validate_and_update_schema(
     schema: &DatabaseSchema,
     partitioner: &Partitioner,
     default_time: i64,
+    accept_partial: bool,
 ) -> Result<ValidationResult> {
     let mut lines = vec![];
+    let mut errors = vec![];
+
     for (line_idx, maybe_line) in parse_lines(lp).enumerate() {
-        let line = maybe_line.map_err(|e| Error::ParseError {
-            line_number: line_idx + 1,
-            message: e.to_string(),
-        })?;
+        let line = match maybe_line {
+            Ok(line) => line,
+            Err(e) => {
+                if accept_partial {
+                    errors.push(Error::ParseError {
+                        line_number: line_idx + 1,
+                        message: e.to_string(),
+                    });
+                } else {
+                    return Err(Error::ParseError {
+                        line_number: line_idx + 1,
+                        message: e.to_string(),
+                    });
+                }
+                continue;
+            }
+        };
         lines.push(line);
+    }
+
+    if accept_partial && !errors.is_empty() {
+        return Err(Error::BatchParseError { errors });
     }
 
     validate_or_insert_schema_and_partitions(lines, schema, partitioner, default_time)
