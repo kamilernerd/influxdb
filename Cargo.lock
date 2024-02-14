@@ -559,7 +559,7 @@ dependencies = [
  "iox_time",
  "metric",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "paste",
  "snafu 0.8.0",
  "test_helpers_end_to_end",
@@ -809,7 +809,7 @@ dependencies = [
  "metric",
  "observability_deps",
  "ouroboros",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pdatastructs",
  "proptest",
  "rand",
@@ -1098,7 +1098,7 @@ dependencies = [
  "futures",
  "hdrhistogram",
  "humantime",
- "parking_lot 0.12.1",
+ "parking_lot",
  "prost-types 0.11.9",
  "serde",
  "serde_json",
@@ -1410,7 +1410,7 @@ dependencies = [
  "hashbrown 0.14.3",
  "lock_api",
  "once_cell",
- "parking_lot_core 0.9.9",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -1479,7 +1479,7 @@ dependencies = [
  "log",
  "num_cpus",
  "object_store",
- "parking_lot 0.12.1",
+ "parking_lot",
  "parquet",
  "pin-project-lite",
  "rand",
@@ -1526,7 +1526,7 @@ dependencies = [
  "hashbrown 0.14.3",
  "log",
  "object_store",
- "parking_lot 0.12.1",
+ "parking_lot",
  "rand",
  "tempfile",
  "url",
@@ -1620,7 +1620,7 @@ dependencies = [
  "itertools 0.12.1",
  "log",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project-lite",
  "rand",
  "tokio",
@@ -1889,7 +1889,7 @@ dependencies = [
  "metric",
  "observability_deps",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project",
  "snafu 0.8.0",
  "tokio",
@@ -1919,7 +1919,7 @@ checksum = "1ee447700ac8aa0b2f2bd7bc4462ad686ba06baa6727ac149a2d6277f0d240fd"
 dependencies = [
  "cfg-if",
  "libc",
- "redox_syscall 0.4.1",
+ "redox_syscall",
  "windows-sys 0.52.0",
 ]
 
@@ -2069,7 +2069,7 @@ checksum = "1d930c203dd0b6ff06e0201a4a2fe9149b43c684fd4420555b26d21b1a02956f"
 dependencies = [
  "futures-core",
  "lock_api",
- "parking_lot 0.12.1",
+ "parking_lot",
 ]
 
 [[package]]
@@ -2579,7 +2579,7 @@ dependencies = [
  "futures",
  "mockito",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "reqwest",
  "serde",
  "serde_json",
@@ -2611,7 +2611,7 @@ dependencies = [
  "observability_deps",
  "once_cell",
  "panic_logging",
- "parking_lot 0.12.1",
+ "parking_lot",
  "parquet_file",
  "thiserror",
  "tikv-jemalloc-ctl",
@@ -2654,7 +2654,7 @@ dependencies = [
  "metric_exporters",
  "object_store",
  "observability_deps",
- "parking_lot 0.11.2",
+ "parking_lot",
  "parquet",
  "parquet_file",
  "schema",
@@ -2698,7 +2698,7 @@ dependencies = [
  "iox_query",
  "object_store",
  "observability_deps",
- "parking_lot 0.11.2",
+ "parking_lot",
  "parquet",
  "schema",
  "serde",
@@ -2889,7 +2889,7 @@ dependencies = [
  "mutable_batch_lp",
  "observability_deps",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "paste",
  "pretty_assertions",
  "proptest",
@@ -2963,7 +2963,7 @@ dependencies = [
  "object_store",
  "observability_deps",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "parquet_file",
  "predicate",
  "query_functions",
@@ -3070,7 +3070,7 @@ name = "iox_time"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "parking_lot 0.12.1",
+ "parking_lot",
  "tokio",
  "workspace-hack",
 ]
@@ -3095,7 +3095,7 @@ dependencies = [
  "metric",
  "metric_exporters",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pprof",
  "reqwest",
  "serde",
@@ -3356,7 +3356,7 @@ dependencies = [
  "json-patch",
  "k8s-openapi",
  "kube-client",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project",
  "serde",
  "serde_json",
@@ -3513,7 +3513,7 @@ version = "0.1.0"
 dependencies = [
  "observability_deps",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "regex",
  "tracing-subscriber",
  "workspace-hack",
@@ -3583,7 +3583,7 @@ dependencies = [
 name = "metric"
 version = "0.1.0"
 dependencies = [
- "parking_lot 0.12.1",
+ "parking_lot",
  "workspace-hack",
 ]
 
@@ -3662,7 +3662,7 @@ dependencies = [
  "crossbeam-utils",
  "futures-util",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "quanta",
  "rustc_version",
  "skeptic",
@@ -3982,7 +3982,7 @@ dependencies = [
  "humantime",
  "hyper",
  "itertools 0.11.0",
- "parking_lot 0.12.1",
+ "parking_lot",
  "percent-encoding",
  "quick-xml 0.31.0",
  "rand",
@@ -4028,7 +4028,7 @@ version = "1.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
 dependencies = [
- "parking_lot_core 0.9.9",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -4110,37 +4110,12 @@ checksum = "bb813b8af86854136c6922af0598d719255ecb2179515e6e7730d468f05c9cae"
 
 [[package]]
 name = "parking_lot"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d17b78036a60663b797adeaee46f5c9dfebb86948d1255007a1d6be0271ff99"
-dependencies = [
- "instant",
- "lock_api",
- "parking_lot_core 0.8.6",
-]
-
-[[package]]
-name = "parking_lot"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3742b2c103b9f06bc9fff0a37ff4912935851bee6d36f3c02bcc755bcfec228f"
 dependencies = [
  "lock_api",
- "parking_lot_core 0.9.9",
-]
-
-[[package]]
-name = "parking_lot_core"
-version = "0.8.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60a2cfe6f0ad2bfc16aefa463b497d5c7a5ecd44a23efa72aa342d90177356dc"
-dependencies = [
- "cfg-if",
- "instant",
- "libc",
- "redox_syscall 0.2.16",
- "smallvec",
- "winapi",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -4151,7 +4126,7 @@ checksum = "4c42a9226546d68acdd9c0a280d17ce19bfe27a46bf68784e4066115788d008e"
 dependencies = [
  "cfg-if",
  "libc",
- "redox_syscall 0.4.1",
+ "redox_syscall",
  "smallvec",
  "windows-targets 0.48.5",
 ]
@@ -4219,7 +4194,7 @@ dependencies = [
  "notify",
  "object_store",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "parquet_file",
  "pin-project",
  "rand",
@@ -4569,7 +4544,7 @@ dependencies = [
  "log",
  "nix 0.26.4",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "prost 0.12.3",
  "prost-build",
  "prost-derive 0.12.3",
@@ -4685,7 +4660,7 @@ dependencies = [
  "fnv",
  "lazy_static",
  "memchr",
- "parking_lot 0.12.1",
+ "parking_lot",
  "thiserror",
 ]
 
@@ -4935,15 +4910,6 @@ checksum = "1465873a3dfdaa8ae7cb14b4383657caab0b3e8a0aa9ae8e04b044854c8dfce2"
 dependencies = [
  "crossbeam-deque",
  "crossbeam-utils",
-]
-
-[[package]]
-name = "redox_syscall"
-version = "0.2.16"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a"
-dependencies = [
- "bitflags 1.3.2",
 ]
 
 [[package]]
@@ -5470,7 +5436,7 @@ dependencies = [
  "hashbrown 0.14.3",
  "mutable_batch",
  "mutable_batch_lp",
- "parking_lot 0.12.1",
+ "parking_lot",
  "rand",
  "siphasher 1.0.0",
  "workspace-hack",
@@ -6069,7 +6035,7 @@ dependencies = [
  "async-trait",
  "dotenvy",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "tempfile",
  "tokio",
  "tracing-log",
@@ -6103,7 +6069,7 @@ dependencies = [
  "nix 0.27.1",
  "observability_deps",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "prost 0.12.3",
  "rand",
  "regex",
@@ -6237,7 +6203,7 @@ dependencies = [
  "libc",
  "mio",
  "num_cpus",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project-lite",
  "signal-hook-registry",
  "socket2",
@@ -6309,7 +6275,7 @@ name = "tokio_metrics_bridge"
 version = "0.1.0"
 dependencies = [
  "metric",
- "parking_lot 0.12.1",
+ "parking_lot",
  "tokio",
  "workspace-hack",
 ]
@@ -6517,7 +6483,7 @@ dependencies = [
  "futures",
  "http",
  "http-body",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project",
  "tower",
  "workspace-hack",
@@ -6529,7 +6495,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "rand",
  "workspace-hack",
 ]
@@ -6563,7 +6529,7 @@ dependencies = [
  "itertools 0.12.1",
  "metric",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project",
  "snafu 0.8.0",
  "tower",
@@ -6634,7 +6600,7 @@ dependencies = [
  "matchers",
  "nu-ansi-term",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "regex",
  "serde",
  "serde_json",
@@ -6657,7 +6623,7 @@ dependencies = [
  "lock_api",
  "metric",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project",
  "sysinfo",
  "tempfile",
@@ -6871,7 +6837,7 @@ dependencies = [
  "mutable_batch_lp",
  "mutable_batch_pb",
  "observability_deps",
- "parking_lot 0.12.1",
+ "parking_lot",
  "prost 0.12.3",
  "snafu 0.8.0",
  "snap",
@@ -7288,7 +7254,7 @@ dependencies = [
  "num-traits",
  "object_store",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "percent-encoding",
  "petgraph",
  "phf_shared",
